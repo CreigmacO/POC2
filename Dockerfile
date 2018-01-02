@@ -1,10 +1,10 @@
 FROM python:2.7
  
 # Install Ansible from source (master)
-RUN apt-get -y update && \
-    apt-get install -y python-httplib2 python-keyczar python-setuptools python-pkg-resources
-RUN git python-pip && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get -y update
+RUN apt-get install -y python-httplib2 python-keyczar python-setuptools python-pkg-resources
+RUN git python-pip 
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN pip install paramiko jinja2 PyYAML setuptools pycrypto>=2.6 six \
     requests docker-py  # docker inventory plugin
 RUN git clone http://github.com/ansible/ansible.git /opt/ansible && \
