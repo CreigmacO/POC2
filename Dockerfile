@@ -1,14 +1,17 @@
-# Latest Ubuntu LTS 
-FROM ubuntu:14.04 
-MAINTAINER Creig Smith 
+FROM ubuntu
+ MAINTAINER Creig Smith
+ 
+ RUN apt-get -y update
+ RUN apt-get install -y python-yaml python-jinja2 git
+ RUN git clone http://github.com/ansible/ansible.git /tmp/ansible
+ WORKDIR /tmp/ansible
+ ENV PATH /tmp/ansible/bin:/sbin:/usr/sbin:/usr/bin
+ ENV ANSIBLE_LIBRARY /tmp/ansible/library
+ ENV PYTHONPATH /tmp/ansible/lib:$PYTHON_PATH
+ RUN git clone http://github.com/yourusername/yourrepo.git /tmp/example
+ ADD inventory /etc/ansible/hosts
+ WORKDIR /tmp/examples
+ RUN ansible-playbook site.yml -c local
 
-
-RUN apt-get -y update && \
-    apt-get install -y python-yaml python-jinja2 python-httplib2 python-keyczar python-paramiko python-setuptools python-pkg-resources git python-pip
-RUN mkdir /etc/ansible/
-RUN echo '[local]\nlocalhost\n' > /etc/ansible/hosts
-RUN mkdir /opt/ansible/
-RUN git clone http://github.com/ansible/ansible.git /opt/ansible/ansible
-WORKDIR /opt/ansible/ansible
-RUN git submodule update --init
-ENV PATH /opt/ansible/ansible/bin:/bin:/usr/bin:/sbin:/usr/sbin ENV PYTHONPATH /opt/ansible/ansible/lib ENV ANSIBLE_LIBRARY /opt/ansible/ansible/library
+EXPOSE 22 3000
+ENTRYPOINT [“/usr/bin/foo”]
