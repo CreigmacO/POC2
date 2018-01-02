@@ -1,0 +1,8 @@
+    aws_access_key: AKIAJZSDUBDRGNIDK5EQ
+    aws_secret_key: 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
+    key_name: POC.pem
+    aws_region: us-east
+    vpc_id: vpc-779a591f
+    ami_id: ami-82f4dae7
+    instance_type: t2.micro
+    #my_local_cidr_ip: <enter cidr_ip>
